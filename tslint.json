@@ -1,0 +1,19 @@
+{
+  "defaultSeverity": "warning",
+  "linterOptions": { "exclude": ["node_modules/**/*.ts"] },
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "interface-name": true,
+    "prettier": true,
+    "no-console": [false],
+    "quotemark": [true, "single"],
+    "array-type": [true, "array"],
+    "curly": false,
+    "max-line-length": [true, 90],
+    "object-literal-sort-keys": false,
+    "member-access": false,
+    "ordered-imports": false
+  },
+  "rulesDirectory": ["tslint-plugin-prettier"]
+}

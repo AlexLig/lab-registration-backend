@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "target": "esnext",
+    "declaration": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "watch": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"]
+    },
+    "lib": ["esnext"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "plugins": [{ "name": "typescript-tslint-plugin", "configFile": "./tslint.json" }]
+  },
+  "include": ["src/**/*"]
+}
