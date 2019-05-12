@@ -1,7 +1,14 @@
 import express, { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
+
+// Connect to db
+mongoose.connect('mongodb://localhost/labRegistration', {
+  useNewUrlParser: true,
+});
 
 const app = express();
 
+// Middlewares
 app.use(express.json());
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -10,9 +17,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).send('Something went wrong');
 });
 
+// Home route
 app.get('/', (request, response) => {
   response.send('<h1>HELLO WORLD</h1>');
 });
 
+// Start up server
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening to PORT:${port}`));
