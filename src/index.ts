@@ -2,9 +2,12 @@ import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 
 // Connect to db
-mongoose.connect('mongodb://localhost/labRegistration', {
-  useNewUrlParser: true,
-});
+mongoose
+  .connect('mongodb://localhost/labRegistration', {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log('Connected to mongoDB...'))
+  .catch(() => console.log('Failed to connect'));
 
 const app = express();
 
