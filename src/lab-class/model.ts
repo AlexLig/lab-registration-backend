@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Joi from 'joi';
 const labClassSchema = new mongoose.Schema({
-  course: {
+  courseName: {
     type: String,
     required: true,
     trim: true,
