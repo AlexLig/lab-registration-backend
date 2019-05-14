@@ -5,6 +5,7 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
 });
 
@@ -16,4 +17,4 @@ const validationSchema = {
 };
 
 export const Course = mongoose.model('Course', courseSchema);
-export const validateLabClass = (course: any) => Joi.validate(course, validationSchema);
+export const validateCourse = (course: any) => Joi.validate(course, validationSchema);
