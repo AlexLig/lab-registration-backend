@@ -2,6 +2,7 @@ import { IsString, Length, IsAlphanumeric } from 'class-validator';
 
 export class StudentDto {
   @IsString()
+  @Length(2, 255)
   readonly name!: string;
 
   @IsAlphanumeric()
