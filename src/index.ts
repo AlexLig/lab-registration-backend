@@ -19,7 +19,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use('/api/cources', courseRouter);
+app.use('/api/courses', courseRouter);
 app.use(errorHandler);
 
 // Home route
