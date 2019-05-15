@@ -4,7 +4,7 @@
   "port": 5432,
   "username": "postgres",
   "password": "postgres",
-  "database": "LabRegistration",
+  "database": "labRegistration",
   "entities": ["dist/**/entity{.ts,.js}"],
   "autoSchemaSync": true,
   "synchronize": true,
