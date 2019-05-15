@@ -1,58 +1,64 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { Course, validateCourse } from './model';
+import {
+  getAllCourses,
+  createCourse,
+  getCourseById,
+  deleteCourseById,
+  updateCourseById,
+} from './services';
+import { trim } from '../middlewares/trim';
+import { validateReq } from '../middlewares/validateReq';
+import { CourseDto } from './dto';
 
 export const router = express.Router();
 
 router
   .route('/')
 
-  .get(async (req, res) => {
-    // Get all courses from db and sort them by name property
-    const courses = await Course.find().sort('name');
-    res.send(courses);
+  .get(async (req, res, next) => {
+    try {
+      const courses = await getAllCourses();
+      res.send(courses);
+    } catch (error) {
+      next(error);
+    }
   })
 
-  .post(async (req, res) => {
-    // Check if the request's body is valid.
-    const { error } = validateCourse(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    // Check if course already exist. If so return.
-    const existingCourse = await Course.findOne({ name: req.body.name });
-    if (existingCourse) return res.status(400).send('Course already exist.');
-
-    const course = new Course({
-      name: req.body.name,
-    });
-
-    const savedCourse = await course.save();
-    res.send(savedCourse);
+  .post(trim('body'), validateReq(CourseDto), async (req, res, next) => {
+    try {
+      const course = await createCourse(req.body);
+      res.send(course);
+    } catch (error) {
+      next(error);
+    }
   });
 
 router
   .route('/:id')
 
-  .get(async (req, res) => {
-    const course = Course.findById(req.params.id);
-    if (!course) return res.status(404).send('Course with the given id was not found');
-    res.send(course);
+  .get(async (req, res, next) => {
+    try {
+      const course = getCourseById(req.params.id);
+      res.send(course);
+    } catch (error) {
+      next(error);
+    }
   })
 
-  .put(async (req, res) => {
-    const { error } = validateCourse(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    const course = Course.findByIdAndUpdate(
-      req.params.id,
-      { name: req.body.name },
-      { new: true },
-    );
-    if (!course) return res.status(404).send('Course with the given id was not found.');
-    res.send(course);
+  .put(trim('body'), validateReq(CourseDto), async (req, res, next) => {
+    try {
+      const course = updateCourseById(req.params.id, req.body);
+      res.send(course);
+    } catch (error) {
+      next(error);
+    }
   })
 
-  .delete(async (req, res) => {
-    const course = await Course.findByIdAndRemove(req.params.id);
-    if (!course) return res.status(404).send('Course with the given id was not found');
-    res.send(course);
+  .delete(async (req, res, next) => {
+    try {
+      const deleteResult = deleteCourseById(req.params.id);
+      res.send(deleteResult);
+    } catch (error) {
+      next(error);
+    }
   });
