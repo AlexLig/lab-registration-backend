@@ -38,7 +38,7 @@ courseRouter
 
   .get(async (req, res, next) => {
     try {
-      const course = getCourseById(req.params.id);
+      const course = await getCourseById(req.params.id);
       res.send(course);
     } catch (error) {
       next(error);
@@ -47,7 +47,7 @@ courseRouter
 
   .put(trim('body'), validateReq(CourseDto), async (req, res, next) => {
     try {
-      const course = updateCourseById(req.params.id, req.body);
+      const course = await updateCourseById(req.params.id, req.body);
       res.send(course);
     } catch (error) {
       next(error);
@@ -56,7 +56,7 @@ courseRouter
 
   .delete(async (req, res, next) => {
     try {
-      const deleteResult = deleteCourseById(req.params.id);
+      const deleteResult = await deleteCourseById(req.params.id);
       res.send(deleteResult);
     } catch (error) {
       next(error);
