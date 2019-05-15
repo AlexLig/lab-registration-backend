@@ -10,9 +10,9 @@ import { trim } from '../middlewares/trim';
 import { validateReq } from '../middlewares/validateReq';
 import { CourseDto } from './dto';
 
-export const router = express.Router();
+export const courseRouter = express.Router();
 
-router
+courseRouter
   .route('/')
 
   .get(async (req, res, next) => {
@@ -33,7 +33,7 @@ router
     }
   });
 
-router
+courseRouter
   .route('/:id')
 
   .get(async (req, res, next) => {
