@@ -1,24 +1,24 @@
 import express, { Request, Response, NextFunction } from 'express';
-import mongoose from 'mongoose';
+import 'reflect-metadata';
+import { Connection, createConnection } from 'typeorm';
+import errorHandler from './middlewares/errorHandler';
 
 // Connect to db
-mongoose
-  .connect('mongodb://localhost/labRegistration', {
-    useNewUrlParser: true,
-  })
-  .then(() => console.log('Connected to mongoDB...'))
-  .catch(() => console.log('Failed to connect'));
+const newConnection = async () => {
+  try {
+    const connection: Connection = await createConnection();
+    return connection;
+  } catch (error) {
+    console.log(error);
+  }
+};
+newConnection();
 
 const app = express();
 
 // Middlewares
 app.use(express.json());
-
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  // todo: log ex
-  console.log(err.message, err);
-  res.status(500).send('Something went wrong');
-});
+app.use(errorHandler);
 
 // Home route
 app.get('/', (request, response) => {
