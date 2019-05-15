@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'reflect-metadata';
 import { Connection, createConnection } from 'typeorm';
 import errorHandler from './middlewares/errorHandler';
+import { courseRouter } from './course/router';
 
 // Connect to db
 const newConnection = async () => {
@@ -18,6 +19,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
+app.use('/api/cources', courseRouter);
 app.use(errorHandler);
 
 // Home route
