@@ -18,17 +18,17 @@ export async function getAllCourses() {
   return await getCourseRepository().find();
 }
 
-export async function getCourseById(id: string) {
+export async function getCourseById(id: number) {
   const course = getCourseRepository().findOne(id);
   if (!course) throw new HttpError(404, 'Course with the given id was not found.');
   return course;
 }
 
-export async function updateCourseById(id: string, dto: CourseDto) {
+export async function updateCourseById(id: number, dto: CourseDto) {
   const repo = getCourseRepository();
 
   const existingCourse = await repo.findOne({ where: { name: dto.name } });
-  if (existingCourse && existingCourse.id.toString() !== id)
+  if (existingCourse && existingCourse.id !== id)
     throw new HttpError(400, 'Course with the given name already exist');
 
   const course = await repo.findOne(id);
@@ -38,12 +38,10 @@ export async function updateCourseById(id: string, dto: CourseDto) {
   return await repo.save(updatedCourse);
 }
 
-export async function deleteCourseById(id: string) {
+export async function deleteCourseById(id: number) {
   const repo = getCourseRepository();
 
   const course = getCourseById(id);
 
-  const intId = parseInt(id, 10);
-  if (isNaN(intId)) throw new HttpError(400, 'invalid ID');
-  return await repo.delete({ id: intId });
+  return await repo.delete({ id });
 }
