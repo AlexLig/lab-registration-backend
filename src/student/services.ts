@@ -13,3 +13,10 @@ export async function createStudent(dto: StudentDto) {
 
   return repo.save(dto);
 }
+
+export async function getAllStudents() {
+  const repo = getStudentRepository();
+
+  const students = await repo.find();
+  return students;
+}
