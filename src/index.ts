@@ -4,6 +4,7 @@ import { Connection, createConnection } from 'typeorm';
 import errorHandler from './middlewares/errorHandler';
 import { courseRouter } from './course/router';
 import { studentRouter } from './student/router';
+import { labClassRouter } from './lab-class/router';
 
 // Connect to db
 const newConnection = async () => {
@@ -22,6 +23,7 @@ const app = express();
 app.use(express.json());
 app.use('/api/courses', courseRouter);
 app.use('/api/students', studentRouter);
+app.use('/api/labClasses', labClassRouter);
 app.use(errorHandler);
 
 // Home route
