@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
 import { Course } from '../course/entity';
+import { Student } from '../student/entity';
 
 @Entity()
 export class LabClass {
@@ -20,4 +21,7 @@ export class LabClass {
 
   @ManyToOne(type => Course, course => course.labClasses)
   course!: Course;
+
+  @ManyToMany(type => Student, student => student.labClasses)
+  students!: Student[];
 }
