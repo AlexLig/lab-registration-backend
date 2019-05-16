@@ -13,6 +13,6 @@ export async function createLabClass(dto: LabClassDto) {
 }
 
 export async function getAllLabClass() {
-  const labClasses = await getLabClassRepository().find();
+  const labClasses = await getLabClassRepository().find({ relations: ['course'] });
   return labClasses;
 }
