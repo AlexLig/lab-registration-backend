@@ -40,8 +40,5 @@ export async function updateCourseById(id: number, dto: CourseDto) {
 
 export async function deleteCourseById(id: number) {
   const repo = getCourseRepository();
-
-  const course = getCourseById(id);
-
   return await repo.delete({ id });
 }
