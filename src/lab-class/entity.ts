@@ -6,11 +6,17 @@ export class LabClass {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ length: 500, unique: true })
-  name!: string;
+  @Column('integer')
+  studentCapacity!: number;
 
-  @Column()
+  @Column('integer')
   dayIso!: number;
+
+  @Column('time')
+  startTime!: string;
+
+  @Column('time')
+  finishTime!: string;
 
   @ManyToOne(type => Course, course => course.labClasses)
   course!: Course;
