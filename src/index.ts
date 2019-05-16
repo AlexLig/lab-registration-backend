@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { Connection, createConnection } from 'typeorm';
 import errorHandler from './middlewares/errorHandler';
 import { courseRouter } from './course/router';
+import { studentRouter } from './student/router';
 
 // Connect to db
 const newConnection = async () => {
@@ -20,6 +21,7 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use('/api/courses', courseRouter);
+app.use('/api/students', studentRouter);
 app.use(errorHandler);
 
 // Home route
