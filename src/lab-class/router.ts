@@ -2,13 +2,20 @@ import express, { Request, Response, NextFunction } from 'express';
 import { trim } from '../middlewares/trim';
 import { validateReq } from '../middlewares/validateReq';
 import { LabClassDto } from './dto';
-import { createLabClass } from './services';
+import { createLabClass, getAllLabClass } from './services';
 
-export const router = express.Router();
+export const labClassRouter = express.Router();
 
-router
+labClassRouter
   .route('/')
-  .get()
+  .get(async (req, res, next) => {
+    try {
+      const labClasses = await getAllLabClass();
+      res.send(labClasses);
+    } catch (error) {
+      next(error);
+    }
+  })
   .post(trim('body'), validateReq(LabClassDto), async (req, res, next) => {
     try {
       const labClass = await createLabClass(req.body);
@@ -17,8 +24,3 @@ router
       next(error);
     }
   });
-router
-  .route('/:id')
-  .get()
-  .put()
-  .delete();
