@@ -20,11 +20,9 @@ export class LabClassDto {
   readonly dayIso!: number;
 
   @IsMilitaryTime()
-  @IsISO8601()
   readonly startTime!: string;
 
   @IsMilitaryTime()
-  @IsISO8601()
   readonly finishTime!: string;
 
   @IsInt()
