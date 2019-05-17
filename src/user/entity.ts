@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
-import { LabClass } from '../lab-class/entity';
 import { Student } from '../student/entity';
 
 @Entity()
