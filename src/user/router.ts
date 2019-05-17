@@ -5,6 +5,7 @@ import { createUser } from './services';
 import { UserDto } from './dto';
 import { UserStudentDto } from './dtoUserStudent';
 import { createStudent } from '../student/services';
+import { generateAuthToken } from '../auth/generateToken';
 
 export const userRouter = express.Router();
 
@@ -31,8 +32,9 @@ userRouter
         am: req.body.am,
         userId: user.id,
       });
-
-      return res.send(student);
+      const token = generateAuthToken({ userId: user.id });
+      // res.header('x-auth-token', token).send();
+      // return res.send(student);
     } catch (error) {
       next(error);
     }
