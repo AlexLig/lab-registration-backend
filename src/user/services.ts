@@ -19,3 +19,9 @@ export async function createUser(dto: UserDto) {
 
   return repo.save(user);
 }
+
+export async function getUserById(id: number) {
+  const user = getUserRepository().findOne(id);
+  if (!user) throw new HttpError(404, 'User with the given id was not found');
+  return user;
+}
