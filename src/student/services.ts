@@ -2,6 +2,8 @@ import { getRepository } from 'typeorm';
 import { Student } from './entity';
 import { StudentDto } from './dto';
 import { HttpError } from '../utils/HttpError';
+import { User } from '../user/entity';
+import { getUserById } from '../user/services';
 
 const getStudentRepository = () => getRepository(Student);
 
@@ -11,7 +13,9 @@ export async function createStudent(dto: StudentDto) {
   const existingStudent = await repo.findOne({ where: { am: dto.am } });
   if (existingStudent) throw new HttpError(400, 'Student already registered');
 
-  return repo.save(dto);
+  const user = await getUserById(dto.userId);
+
+  return repo.save({ ...dto, user });
 }
 
 export async function getAllStudents() {

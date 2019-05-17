@@ -1,4 +1,4 @@
-import { IsString, Length, IsAlphanumeric } from 'class-validator';
+import { IsString, Length, IsAlphanumeric, IsInt } from 'class-validator';
 
 export class StudentDto {
   @IsString()
@@ -8,4 +8,7 @@ export class StudentDto {
   @IsAlphanumeric()
   @Length(3, 9)
   readonly am!: string;
+
+  @IsInt()
+  readonly userId!: number;
 }
