@@ -1,10 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinTable } from 'typeorm';
 import { Student } from '../student/entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id?: number;
 
   @Column({ length: 50, unique: true })
   email!: string;
@@ -12,6 +12,7 @@ export class User {
   @Column()
   password!: string;
 
-  @OneToOne(type => Student, student => student.user)
+  @OneToOne(type => Student)
+  @JoinTable()
   student!: Student;
 }

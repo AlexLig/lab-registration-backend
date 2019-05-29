@@ -24,7 +24,4 @@ export class Student {
   @JoinTable()
   labClasses!: LabClass[];
 
-  @OneToOne(type => User, user => user.student)
-  @JoinTable()
-  user!: User;
 }
