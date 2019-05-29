@@ -21,9 +21,9 @@ export async function createStudentUser(dto: StudentDto) {
   const salt = await bcrypt.genSalt(10);
   const password = await bcrypt.hash(dto.password, salt);
 
-  const student = plainToClass(Student, dto, { excludeExtraneousValues: true });
+  const student = plainToClass(Student, dto);
   const userPlain = { ...dto, password, student };
-  const user = plainToClass(User, userPlain, { excludeExtraneousValues: true });
+  const user = plainToClass(User, userPlain);
 
   const result = await connection.transaction(async transactionalEntityManager => {
     const savedUser = await transactionalEntityManager.save(user);

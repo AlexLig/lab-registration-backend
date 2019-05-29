@@ -9,6 +9,4 @@ export class StudentDto extends UserDto {
   @IsAlphanumeric()
   @Length(3, 9)
   readonly am!: string;
-
-  
 }
