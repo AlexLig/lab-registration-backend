@@ -1,6 +1,7 @@
 import { IsString, Length, IsAlphanumeric, IsInt } from 'class-validator';
+import { UserDto } from '../user/dto';
 
-export class StudentDto {
+export class StudentDto extends UserDto {
   @IsString()
   @Length(2, 255)
   readonly name!: string;
@@ -9,6 +10,5 @@ export class StudentDto {
   @Length(3, 9)
   readonly am!: string;
 
-  @IsInt()
-  readonly userId!: number;
+  
 }
