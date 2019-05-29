@@ -13,7 +13,8 @@ const reducerPick = (obj: { [key: string]: any }) => (acc: any, prop: any) => {
 export function removeProps<T extends object>(obj: T, ...props: (keyof T)[]) {
   return Object.entries(obj).reduce((acc, entry) => {
     const [key, value] = entry;
-    if (key in props) return acc;
+    //@ts-ignore
+    if (props.includes(key)) return acc;
     return { ...acc, [key]: value };
   }, {});
 }
