@@ -7,9 +7,10 @@ import bcrypt from 'bcrypt';
 import { plainToClass } from 'class-transformer';
 import { getConnection } from 'typeorm';
 
-export async function createUser(dto: StudentDto) {
-  const userRepo = getRepository(User);
-  const studentRepo = getRepository(Student);
+export async function createStudentUser(dto: StudentDto) {
+  const connection = await getConnection();
+  const userRepo = connection.getRepository(User);
+  const studentRepo = connection.getRepository(Student);
 
   const existingUser = await userRepo.findOne({ where: { email: dto.email } });
   if (existingUser) throw new HttpError(400, 'User already registered');
@@ -24,7 +25,7 @@ export async function createUser(dto: StudentDto) {
   const userPlain = { ...dto, password, student };
   const user = plainToClass(User, userPlain, { excludeExtraneousValues: true });
 
-  const result = await getConnection().transaction(async transactionalEntityManager => {
+  const result = await connection.transaction(async transactionalEntityManager => {
     const savedUser = await transactionalEntityManager.save(user);
     const savedStudent = await transactionalEntityManager.save(student);
 
