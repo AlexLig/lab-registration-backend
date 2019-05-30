@@ -17,6 +17,10 @@ export class User {
   password!: string;
 
   @Expose()
+  @Column()
+  isAdmin!: boolean;
+
+  @Expose()
   @OneToOne(type => Student)
   @JoinTable()
   student!: Student;

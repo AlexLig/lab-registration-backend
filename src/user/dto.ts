@@ -1,4 +1,4 @@
-import { Length, IsEmail } from 'class-validator';
+import { Length, IsEmail, IsBoolean } from 'class-validator';
 
 export class UserDto {
   @IsEmail()
@@ -6,4 +6,7 @@ export class UserDto {
 
   @Length(3, 50)
   readonly password!: string;
+
+  @IsBoolean()
+  readonly isAdmin!: boolean;
 }
