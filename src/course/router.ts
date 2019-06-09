@@ -9,6 +9,7 @@ import {
 import { trim } from '../middlewares/trim';
 import { validateReq } from '../middlewares/validateReq';
 import { CourseDto } from './dto';
+import { getCourseLabs } from '../services/getCourseLabs';
 
 export const courseRouter = express.Router();
 
@@ -32,6 +33,15 @@ courseRouter
       next(error);
     }
   });
+
+courseRouter.route('/:id/labs').get(async (req, res, next) => {
+  try {
+    const labs = await getCourseLabs(req.params.id);
+    res.send(labs);
+  } catch (error) {
+    next(error);
+  }
+});
 
 courseRouter
   .route('/:id')
