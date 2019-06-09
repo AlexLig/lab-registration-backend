@@ -26,10 +26,10 @@ export async function createStudentUser(dto: StudentDto) {
   const user = plainToClass(User, userPlain, { excludeExtraneousValues: true });
 
   const result = await connection.transaction(async transactionalEntityManager => {
-    await transactionalEntityManager.save(student);
+    const savedStudent = await transactionalEntityManager.save(student);
     const savedUser = await transactionalEntityManager.save(user);
 
-    return savedUser;
+    return { ...savedUser, student: savedStudent };
   });
 
   return result;
