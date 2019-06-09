@@ -4,6 +4,7 @@ import { validateReq } from '../middlewares/validateReq';
 import { LabClassDto } from './dto';
 import { createLabClass, getAllLabClass } from './services';
 import { registerStudentToLab } from '../services/registerStudentToLab';
+import { getStudentLabs } from '../services/getStudentLabs';
 
 export const labClassRouter = express.Router();
 
@@ -33,6 +34,14 @@ labClassRouter.route('/register/:labClassID/:studentID').post(async (req, res, n
       req.params.studentID,
     );
     res.send(result);
+  } catch (error) {
+    next(error);
+  }
+});
+labClassRouter.route('/student/:studentID').get(async (req, res, next) => {
+  try {
+    const labs = await getStudentLabs(req.params.studentID);
+    res.send(labs);
   } catch (error) {
     next(error);
   }
