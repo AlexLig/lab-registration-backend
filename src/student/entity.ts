@@ -5,10 +5,12 @@ import {
   ManyToMany,
   JoinTable,
   OneToOne,
+  ManyToOne,
 } from 'typeorm';
 import { LabClass } from '../lab-class/entity';
 import { User } from '../user/entity';
 import { Expose } from 'class-transformer';
+import { Course } from '../course/entity';
 
 @Entity()
 export class Student {
@@ -28,4 +30,7 @@ export class Student {
   @ManyToMany(type => LabClass, labclass => labclass.students)
   @JoinTable()
   labClasses!: LabClass[];
+
+  @ManyToOne(type => Course, course => course.students)
+  course!: Course;
 }

@@ -3,6 +3,7 @@ import { trim } from '../middlewares/trim';
 import { validateReq } from '../middlewares/validateReq';
 import { LabClassDto } from './dto';
 import { createLabClass, getAllLabClass } from './services';
+import { registerStudentToLab } from '../services/registerStudentToLab';
 
 export const labClassRouter = express.Router();
 
@@ -24,3 +25,15 @@ labClassRouter
       next(error);
     }
   });
+
+labClassRouter.route('/register/:labClassID/:studentID').post(async (req, res, next) => {
+  try {
+    const result = await registerStudentToLab(
+      req.params.labClassID,
+      req.params.studentID,
+    );
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+});
