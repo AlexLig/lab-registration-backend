@@ -5,6 +5,7 @@ import { LabClassDto } from './dto';
 import { createLabClass, getAllLabClass } from './services';
 import { registerStudentToLab } from '../services/registerStudentToLab';
 import { getStudentLabs } from '../services/getStudentLabs';
+import { unregisterStudentToLab } from '../services/unregisterStudentfromLab';
 
 export const labClassRouter = express.Router();
 
@@ -27,17 +28,29 @@ labClassRouter
     }
   });
 
-labClassRouter.route('/register/:labClassID/:studentID').post(async (req, res, next) => {
-  try {
-    const result = await registerStudentToLab(
-      req.params.labClassID,
-      req.params.studentID,
-    );
-    res.send(result);
-  } catch (error) {
-    next(error);
-  }
-});
+labClassRouter
+  .route('/register/:labClassID/:studentID')
+  .post(async (req, res, next) => {
+    try {
+      const result = await registerStudentToLab(
+        req.params.labClassID,
+        req.params.studentID,
+      );
+      res.send(result);
+    } catch (error) {
+      next(error);
+    }
+  })
+  .delete(async (req, res, next) => {
+    try {
+      const result = await unregisterStudentToLab(
+        req.params.labClassID,
+        req.params.studentID,
+      );
+    } catch (error) {
+      next(error);
+    }
+  });
 labClassRouter.route('/student/:studentID').get(async (req, res, next) => {
   try {
     const labs = await getStudentLabs(req.params.studentID);
