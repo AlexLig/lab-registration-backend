@@ -5,6 +5,7 @@ import errorHandler from './middlewares/errorHandler';
 import { labClassRouter } from './lab-class/router';
 import { registerRouter } from './routers/register';
 import { courseRouter } from './course/router';
+import { loginRouter } from './routers/login';
 
 // Connect to db
 const newConnection = async () => {
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use('/api/register', registerRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/labClasses', labClassRouter);
+app.use('/api/login', loginRouter);
 app.use(errorHandler);
 
 // Home route
