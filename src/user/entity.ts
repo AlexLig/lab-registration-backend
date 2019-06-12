@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinTable } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinTable, JoinColumn } from 'typeorm';
 import { Student } from '../student/entity';
 import { Expose } from 'class-transformer';
 
@@ -22,6 +22,6 @@ export class User {
 
   @Expose()
   @OneToOne(type => Student)
-  @JoinTable()
+  @JoinColumn()
   student!: Student;
 }
