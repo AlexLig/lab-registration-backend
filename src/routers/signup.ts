@@ -5,9 +5,9 @@ import { StudentDto } from '../student/dto';
 import { createStudentUser } from '../services/createStudentUser';
 import { removeProps } from '../utils/objectManipulation';
 
-export const registerRouter = express.Router();
+export const signup = express.Router();
 
-registerRouter
+signup
   .route('/student')
   .post(trim('body'), validateReq(StudentDto), async (req, res, next) => {
     try {
@@ -18,4 +18,4 @@ registerRouter
     }
   });
 
-registerRouter.route('/teacher').post(async () => {});
+signup.route('/teacher').post(async () => {});

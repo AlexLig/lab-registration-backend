@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { Connection, createConnection } from 'typeorm';
 import errorHandler from './middlewares/errorHandler';
 import { labClassRouter } from './lab-class/router';
-import { registerRouter } from './routers/register';
+import { signup } from './routers/signup';
 import { courseRouter } from './course/router';
 import { loginRouter } from './routers/login';
 
@@ -22,7 +22,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use('/api/register', registerRouter);
+app.use('/api/register', signup);
 app.use('/api/courses', courseRouter);
 app.use('/api/labClasses', labClassRouter);
 app.use('/api/login', loginRouter);
