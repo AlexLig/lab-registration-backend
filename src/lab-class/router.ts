@@ -47,6 +47,7 @@ labClassRouter
         req.params.labClassID,
         req.params.studentID,
       );
+      res.send(result);
     } catch (error) {
       next(error);
     }
