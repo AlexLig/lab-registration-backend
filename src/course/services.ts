@@ -19,7 +19,9 @@ export async function getAllCourses() {
 }
 
 export async function getCourseById(id: number) {
-  const course = getCourseRepository().findOne(id);
+  const course = getCourseRepository().findOne(id, {
+    relations: ['students', 'labClasses'],
+  });
   if (!course) throw new HttpError(404, 'Course with the given id was not found.');
   return course;
 }
