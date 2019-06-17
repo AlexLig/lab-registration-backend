@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import { trim } from '../middlewares/trim';
 import { validateReq } from '../middlewares/validateReq';
 import { LabClassDto } from './dto';
-import { createLabClass, getAllLabClass } from './services';
+import { createLabClass, getAllLabClass, getLabClass } from './services';
 import { registerStudentToLab } from '../services/registerStudentToLab';
 import { getStudentLabs } from '../services/getStudentLabs';
 import { unregisterStudentToLab } from '../services/unregisterStudentfromLab';
@@ -27,6 +27,15 @@ labClassRouter
       next(error);
     }
   });
+
+labClassRouter.route('/:id').get(async (req, res, next) => {
+  try {
+    const labClass = await getLabClass(req.params.id);
+    res.send(labClass);
+  } catch (error) {
+    next(error);
+  }
+});
 
 labClassRouter
   .route('/register/:labClassID/:studentID')
